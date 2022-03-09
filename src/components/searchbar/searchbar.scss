@@ -1,60 +1,60 @@
-.yb-sb-main_container-btn_search{
-    display: flex;
-    background-color: orangered;
-    position: absolute;
-    color: white;
-    outline:none;
-    padding: 5.5px;
-    &:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        background-color: white;
-        color: red;
-        outline:none;
-    }
-}
-
-.yb-sb-main_container-btn_back{
-    display: none;
-    right: 1em;
-    position: absolute;
+.yb-sb-main_container-btn_search {
+  display: flex;
+  background-color: orangered;
+  position: absolute;
+  color: white;
+  outline: none;
+  padding: 5.5px;
+  &:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
     background-color: white;
-    color: black;
-    outline:none;
-    padding: 5.5px;
-    &:hover{
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-        background-color: orangered;
-        color: white;
-        outline:none;
-    }
+    color: red;
+    outline: none;
+  }
 }
 
-.yb-sb-main_container{
-    display: flex;
-    flex-direction: row;
-    top: 0px;
-    background: palegoldenrod;
-    position: sticky;
-    margin: 1em;
-    z-index: 1;
-    padding: 1em;
+.yb-sb-main_container-btn_back {
+  display: none;
+  right: 1em;
+  position: absolute;
+  background-color: white;
+  color: black;
+  outline: none;
+  padding: 5.5px;
+  &:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    background-color: orangered;
+    color: white;
+    outline: none;
+  }
 }
 
-.yb-sb-main_container-input_search{
-    padding: 0;
-    border-radius: 50px 0 0 50px;
-    outline:none;
-    text-indent: 20px;
-    border-color: palegoldenrod;
-    width: 20em;
-    /*Border: none;*/
-    /*outline: none;*/
+.yb-sb-main_container {
+  display: flex;
+  flex-direction: row;
+  top: 0px;
+  background: palegoldenrod;
+  position: sticky;
+  margin: 1em;
+  z-index: 1;
+  padding: 1em;
 }
 
+.yb-sb-main_container-input_search {
+  padding: 0;
+  border-radius: 50px 0 0 50px;
+  outline: none;
+  text-indent: 20px;
+  border-color: palegoldenrod;
+  width: 20em;
+  /*Border: none;*/
+  /*outline: none;*/
+}
 
-
-.yb-sb-main_container-img_search{
-    margin-right: 2em;
-    margin-left: 1em;
-    pointer-events: none;
+.yb-sb-main_container-img_search {
+  margin-right: 2em;
+  margin-left: 1em;
+  pointer-events: none;
 }

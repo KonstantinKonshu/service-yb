@@ -1,24 +1,25 @@
-import React, { Component, useEffect, useState } from "react";
-
 import "./searchbar.scss";
+
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { handleSubmitInit, getRequestSearch, setError } from "../../actions";
-import { connect, useDispatch, useSelector } from "react-redux";
 import YoutubeAPI from "../youtubeAPI/youtubeAPI";
 import { KEY } from "../../constants";
 
-const qs = require("query-string");
+// const qs = require("query-string");
 
 const Searchbar = () => {
   const [term, setTerm] = useState("");
   //   const searchRouting = useSelector(
   //     (state) => state.routing.locationBeforeTransitions.search
   //   );
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("componentDidMount_SB");
+    // console.log(
+    //   "searchRouting: ",
+    //   useSelector((state) => state)
+    // );
   }, []);
 
   const handleOnChange = (e) => {
@@ -26,7 +27,7 @@ const Searchbar = () => {
   };
 
   const onSubmit = () => {
-    dispatch(handleSubmitInit(term, null));
+    // dispatch(handleSubmitInit(term, null));
     //   this.props.handleSubmitInit(term, null);
     const params = {
       q: term,
@@ -37,7 +38,7 @@ const Searchbar = () => {
     YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
       .then((response) => {
         const receivedData = response.data;
-        dispatch(getRequestSearch(receivedData));
+        // dispatch(getRequestSearch(receivedData));
         // this.props.getRequestSearch(receivedData);
       })
       .catch((error) => {
@@ -88,6 +89,8 @@ const Searchbar = () => {
     </div>
   );
 };
+
+export default Searchbar;
 
 // class SearchbarTWo extends Component {
 //   constructor(props) {
@@ -179,14 +182,14 @@ const Searchbar = () => {
 //   }
 // }
 
-const mapStateToProps = (state) => ({
-  //   searchRouting: state.routing.locationBeforeTransitions.search,
-});
+// const mapStateToProps = (state) => ({
+//   //   searchRouting: state.routing.locationBeforeTransitions.search,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  //   handleSubmitInit: bindActionCreators(handleSubmitInit, dispatch),
-  //   getRequestSearch: bindActionCreators(getRequestSearch, dispatch),
-  //   setError: bindActionCreators(setError, dispatch),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   //   handleSubmitInit: bindActionCreators(handleSubmitInit, dispatch),
+//   //   getRequestSearch: bindActionCreators(getRequestSearch, dispatch),
+//   //   setError: bindActionCreators(setError, dispatch),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
+// export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);

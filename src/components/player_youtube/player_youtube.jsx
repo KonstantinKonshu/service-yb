@@ -1,26 +1,29 @@
+import "./player_youtube.scss";
+
 import React from "react";
-import './player_youtube.scss';
-import {useSelector} from "react-redux";
+// import { useSelector } from "react-redux";
 
-const PlayerYoutube =() => {
+const PlayerYoutube = () => {
+  //   const selectedVideo = useSelector(
+  //     (state) => state.videosReducer.selectedVideo
+  //   );
 
-    const selectedVideo = useSelector(state => state.videosReducer.selectedVideo);
+  //   let identif;
+  //   if (selectedVideo) {
+  //     const { id } = selectedVideo;
+  //     identif = id.videoId || id;
+  //   }
 
-    let identif;
-    if(selectedVideo){
-        const {id} = selectedVideo;
-        identif = id.videoId || id;
-    }
+  return (
+    <div className="yb-py-main_container">
+      <iframe
+        className="yb-py-player_body"
+        type="text/html"
+        // src={`http://www.youtube.com/embed/${identif}?autoplay=1&origin=http://example.com`}
+        frameBorder="0"
+      />
+    </div>
+  );
+};
 
-    return (
-        <div className="yb-py-main_container">
-            <iframe className='yb-py-player_body' type="text/html"
-                    src={`http://www.youtube.com/embed/${identif}?autoplay=1&origin=http://example.com`}
-                    frameBorder="0"/>
-        </div>
-
-    )
-
-}
-
-export  default  PlayerYoutube
+export default PlayerYoutube;
