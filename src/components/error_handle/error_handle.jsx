@@ -1,5 +1,6 @@
-import React, { Component } from "react";
 import "./error_handle.scss";
+
+import React from "react";
 
 const ErrorHandle = () => {
   return (

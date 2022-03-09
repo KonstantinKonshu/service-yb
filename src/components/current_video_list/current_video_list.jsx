@@ -1,14 +1,16 @@
-import React, { Component } from "react";
+import "./current_video_list.scss";
+
+import React from "react";
 import PlayerYoutube from "../player_youtube/player_youtube";
 import VideoList from "../video_list/video_list";
-import "./current_video_list.scss";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const CurrentVideoList = () => {
   let title, channelTitle, description;
-  const selectedVideo = useSelector(
-    (state) => state.videosReducer.selectedVideo
-  );
+  //   const selectedVideo = useSelector(
+  //     (state) => state.videosReducer.selectedVideo
+  //   );
+  const selectedVideo = {};
 
   if (selectedVideo) {
     title = selectedVideo.snippet.title;
