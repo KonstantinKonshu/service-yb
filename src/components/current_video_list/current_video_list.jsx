@@ -5,14 +5,9 @@ import { storeContext } from "../store";
 import PlayerYoutube from "../player_youtube/player_youtube";
 import VideoList from "../video_list/video_list";
 
-// import { useSelector } from "react-redux";
-
 const CurrentVideoList = () => {
   const { state } = useContext(storeContext);
   let title, channelTitle, description;
-  //   const selectedVideo = useSelector(
-  //     (state) => state.videosReducer.selectedVideo
-  //   );
   const selectedVideo = state.selectedVideo || {};
 
   if (selectedVideo) {
@@ -27,9 +22,7 @@ const CurrentVideoList = () => {
         <PlayerYoutube />
         <div className="yb-cvl-main_video_constainer-video_content">
           <div className="yb-cvl-video_content-title">{title}</div>
-          <div className="yb-cvl-video_content-channel_title">
-            {channelTitle}
-          </div>
+          <div className="yb-cvl-video_content-channel_title">{channelTitle}</div>
           <div className="yb-cvl-video_content-desc">{description}</div>
         </div>
       </div>

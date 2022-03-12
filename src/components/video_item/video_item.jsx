@@ -11,18 +11,8 @@ import {
 } from "../../actions";
 import YoutubeAPI from "../youtubeAPI/youtubeAPI";
 import { KEY } from "../../constants";
-
+import classNames from "classnames";
 // import { animateScroll as scroll } from "react-scroll";
-// import { connect, useDispatch } from "react-redux";
-// import {
-//   handleClickVideo,
-//   handleClickChannel,
-//   getRequestSearch,
-//   getBannerChannels,
-//   setError,
-// } from "../../actions";
-// import YoutubeAPI from "../youtubeAPI/youtubeAPI";
-// import { KEY } from "../../constants";
 
 const VideoItem = ({ video }) => {
   const { dispatch } = useContext(storeContext);
@@ -60,8 +50,7 @@ const VideoItem = ({ video }) => {
         params,
       })
         .then((response) => {
-          const bannerUrl =
-            response.data.items[0].brandingSettings.image.bannerImageUrl;
+          const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
           dispatch(getBannerChannels(bannerUrl));
         })
         .catch((error) => {
@@ -81,26 +70,22 @@ const VideoItem = ({ video }) => {
   return (
     <div className="yb-vi-main_container" onClick={() => clickItem(video)}>
       <div
-        className={
-          video.id.kind === "youtube#video"
-            ? "yb-vi-video_container"
-            : "yb-vi-channel_container"
-        }
+        className={classNames({
+          "yb-vi-video_container": video.id.kind === "youtube#video",
+          "yb-vi-channel_container": video.id.kind !== "youtube#video",
+        })}
       >
         <img
-          className={
-            video.id.kind === "youtube#channel"
-              ? "yb-vi-main_container_item-img_channel yb-vi-main_container-img"
-              : "yb-vi-main_container_item-img_video yb-vi-main_container-img"
-          }
+          className={classNames({
+            "yb-vi-main_container-img": true,
+            "yb-vi-main_container_item-img_channel": video.id.kind === "youtube#channel",
+            "yb-vi-main_container_item-img_video": video.id.kind !== "youtube#channel",
+          })}
           src={video.snippet.thumbnails.medium.url}
           alt={video.snippet.description}
         />
         <div className="yb-vi-main_container_item-icon_play">
-          <img
-            src="https://img.icons8.com/color/48/000000/youtube-play.png"
-            alt=""
-          />
+          <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="" />
         </div>
       </div>
       <div className="yb-vi-main_container-title ">{video.snippet.title}</div>
