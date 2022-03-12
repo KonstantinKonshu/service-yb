@@ -8,8 +8,9 @@ import { storeContext } from "../app/store";
 const VideoList = () => {
   const { state } = useContext(storeContext);
 
-  const renderedVideos = state.videos.map((video, index) => {
-    if (video !== state.selectedVideo) {
+  const renderedVideos = state.videos
+    .filter((i) => i !== state.selectedVideo)
+    .map((video, index) => {
       const url =
         video.id.kind === "youtube#video"
           ? `/current-video?id=${video.id.videoId}`
@@ -17,11 +18,11 @@ const VideoList = () => {
 
       return (
         <Link key={`VideoList_${index}`} to={url}>
+          <div></div>
           <VideoItem key={`VideoList_${index}`} video={video} />
         </Link>
       );
-    }
-  });
+    });
   return <div className="yb-vl-main_container">{renderedVideos}</div>;
 };
 

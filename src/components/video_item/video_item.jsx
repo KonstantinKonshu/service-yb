@@ -1,6 +1,16 @@
 import "./video_item.scss";
 
-import React from "react";
+import React, { useContext } from "react";
+import { storeContext } from "../app/store";
+import {
+  handleClickVideo,
+  handleClickChannel,
+  getRequestSearch,
+  getBannerChannels,
+  setError,
+} from "../../actions";
+import YoutubeAPI from "../youtubeAPI/youtubeAPI";
+import { KEY } from "../../constants";
 
 // import { animateScroll as scroll } from "react-scroll";
 // import { connect, useDispatch } from "react-redux";
@@ -15,64 +25,61 @@ import React from "react";
 // import { KEY } from "../../constants";
 
 const VideoItem = ({ video }) => {
-  //   const dispatch = useDispatch();
+  const { dispatch } = useContext(storeContext);
 
-  //   const clickItem = (video) => {
-  //     scroll.scrollToTop();
+  const clickItem = (video) => {
+    // scroll.scrollToTop();
 
-  //     if (video.id.kind === "youtube#video") dispatch(handleClickVideo(video));
+    if (video.id.kind === "youtube#video") dispatch(handleClickVideo(video));
 
-  //     if (video.id.kind === "youtube#channel") {
-  //       dispatch(handleClickChannel(video));
+    if (video.id.kind === "youtube#channel") {
+      dispatch(handleClickChannel(video));
 
-  //       let params = {
-  //         channelId: video.id.channelId,
-  //         part: "snippet",
-  //         key: KEY,
-  //         maxResults: 10,
-  //       };
-  //       YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
-  //         .then((response) => {
-  //           const receivedData = response.data;
-  //           dispatch(getRequestSearch(receivedData));
-  //         })
-  //         .catch((error) => {
-  //           console.log("ERROR", error);
-  //           dispatch(setError(true));
-  //         });
+      let params = {
+        channelId: video.id.channelId,
+        part: "snippet",
+        key: KEY,
+        maxResults: 10,
+      };
+      YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
+        .then((response) => {
+          const receivedData = response.data;
+          dispatch(getRequestSearch(receivedData));
+        })
+        .catch((error) => {
+          console.log("ERROR", error);
+          dispatch(setError(true));
+        });
 
-  //       params = {
-  //         id: video.id.channelId,
-  //         part: "snippet,brandingSettings",
-  //         key: KEY,
-  //       };
-  //       YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", {
-  //         params,
-  //       })
-  //         .then((response) => {
-  //           const bannerUrl =
-  //             response.data.items[0].brandingSettings.image.bannerImageUrl;
-  //           dispatch(getBannerChannels(bannerUrl));
-  //         })
-  //         .catch((error) => {
-  //           console.log("ERROR", error);
-  //           dispatch(setError(true));
-  //         });
+      params = {
+        id: video.id.channelId,
+        part: "snippet,brandingSettings",
+        key: KEY,
+      };
+      YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", {
+        params,
+      })
+        .then((response) => {
+          const bannerUrl =
+            response.data.items[0].brandingSettings.image.bannerImageUrl;
+          dispatch(getBannerChannels(bannerUrl));
+        })
+        .catch((error) => {
+          console.log("ERROR", error);
+          dispatch(setError(true));
+        });
 
-  //       document.getElementsByClassName(
-  //         "yb-app-block_btn_control-next_btn"
-  //       )[0].style.display = "initial";
-  //       document.getElementsByClassName(
-  //         "yb-sb-main_container-btn_back"
-  //       )[0].style.display = "initial";
-  //     }
-  //   };
+      // document.getElementsByClassName(
+      //   "yb-app-block_btn_control-next_btn"
+      // )[0].style.display = "initial";
+      // document.getElementsByClassName(
+      //   "yb-sb-main_container-btn_back"
+      // )[0].style.display = "initial";
+    }
+  };
 
   return (
-    <div
-      //   onClick={() => clickItem(video)}
-      className="yb-vi-main_container"
-    >
+    <div className="yb-vi-main_container" onClick={() => clickItem(video)}>
       <div
         className={
           video.id.kind === "youtube#video"
@@ -90,7 +97,10 @@ const VideoItem = ({ video }) => {
           alt={video.snippet.description}
         />
         <div className="yb-vi-main_container_item-icon_play">
-          <img src="https://img.icons8.com/color/48/000000/youtube-play.png" />
+          <img
+            src="https://img.icons8.com/color/48/000000/youtube-play.png"
+            alt=""
+          />
         </div>
       </div>
       <div className="yb-vi-main_container-title ">{video.snippet.title}</div>

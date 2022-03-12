@@ -1,11 +1,12 @@
 import "./current_channel_list.scss";
 
-import React from "react";
-// import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { storeContext } from "../app/store";
 import VideoList from "../video_list/video_list";
 
-const Current_channel_list = () => {
-  const banner = ""; //useSelector((state) => state.channelsReducer.bannerChannel);
+const CurrentChannelList = () => {
+  const { state } = useContext(storeContext);
+  const banner = state.bannerChannel;
   return (
     <div>
       <div className="yb-ccl-banner_channel">
@@ -16,4 +17,4 @@ const Current_channel_list = () => {
   );
 };
 
-export default Current_channel_list;
+export default CurrentChannelList;

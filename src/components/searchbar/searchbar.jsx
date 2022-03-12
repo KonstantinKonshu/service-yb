@@ -9,8 +9,7 @@ import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
 const Searchbar = () => {
   const [term, setTerm] = useState("");
-  const globalState = useContext(storeContext);
-  const { dispatch } = globalState;
+  const { dispatch } = useContext(storeContext);
 
   useEffect(() => {
     console.log("componentDidMount_SB");
@@ -49,6 +48,7 @@ const Searchbar = () => {
       <img
         className="yb-sb-main_container-img_search"
         src="https://icongr.am/clarity/video-gallery.svg?size=30&color=CD0000"
+        alt=""
       />
       <input
         className="yb-sb-main_container-input_search yb-general_text_font"
