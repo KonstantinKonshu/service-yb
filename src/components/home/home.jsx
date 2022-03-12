@@ -8,7 +8,6 @@ const Home = () => {
 
   return (
     <div>
-      <div />
       <div>Home Hello</div>
     </div>
   );

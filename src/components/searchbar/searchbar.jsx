@@ -1,12 +1,16 @@
 import "./searchbar.scss";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import YoutubeAPI from "../youtubeAPI/youtubeAPI";
 import { KEY } from "../../constants";
+import { storeContext } from "../app/store";
+import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
 const Searchbar = () => {
   const [term, setTerm] = useState("");
+  const globalState = useContext(storeContext);
+  const { dispatch } = globalState;
 
   useEffect(() => {
     console.log("componentDidMount_SB");
@@ -17,27 +21,26 @@ const Searchbar = () => {
   };
 
   const onSubmit = () => {
-    // dispatch(handleSubmitInit(term, null));
-    //   this.props.handleSubmitInit(term, null);
+    dispatch(handleSubmitInit(term, null));
+
     const params = {
       q: term,
       part: "snippet",
       key: KEY,
       maxResults: 10,
     };
-
     console.log("params: ", params);
+
     YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
       .then((rsp) => {
         console.log("Youtube rsp: ", rsp);
         console.log("Youtube rsp 2: ", rsp.data);
         // const receivedData = response.data;
-        // dispatch(getRequestSearch(receivedData));
-        // this.props.getRequestSearch(receivedData);
+        dispatch(getRequestSearch(rsp.data));
       })
       .catch((error) => {
         console.log("ERROR", error);
-        // this.props.setError(true);
+        dispatch(setError(true));
       });
   };
 

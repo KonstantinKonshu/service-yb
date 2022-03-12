@@ -1,6 +1,7 @@
 import { types } from "./constants";
 
-export const handleSubmitInit = (termFromSearchBar, initialItem) => {
+const handleSubmitInit = (termFromSearchBar, initialItem) => {
+  console.log("handleSubmitInit: ", termFromSearchBar, initialItem);
   return {
     type: types.HANDLE_SUBMIT_INIT,
     payload1: termFromSearchBar,
@@ -9,37 +10,46 @@ export const handleSubmitInit = (termFromSearchBar, initialItem) => {
   };
 };
 
-export const getRequestSearch = (data) => {
+const getRequestSearch = (data) => {
   return {
     type: types.get.GET_REQUEST_SEARCH,
     payload: data,
   };
 };
 
-export const getBannerChannels = (bannerChannel) => {
+const getBannerChannels = (bannerChannel) => {
   return {
     type: types.get.GET_BANNER_CHANNELS,
     payload: bannerChannel,
   };
 };
 
-export const handleClickVideo = (videoSelect) => {
+const handleClickVideo = (videoSelect) => {
   return {
     type: types.set.SET_SELECT_VIDEO,
     payload: videoSelect,
   };
 };
 
-export const handleClickChannel = (channel) => {
+const handleClickChannel = (channel) => {
   return {
     type: types.SELECT_CHANNEL,
     payload: channel,
   };
 };
 
-export const setError = (error) => {
+const setError = (error) => {
   return {
     type: types.set.SET_ERROR,
     payload: error,
   };
+};
+
+export {
+  handleSubmitInit,
+  getRequestSearch,
+  getBannerChannels,
+  handleClickVideo,
+  handleClickChannel,
+  setError,
 };
