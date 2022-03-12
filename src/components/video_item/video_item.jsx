@@ -1,7 +1,7 @@
 import "./video_item.scss";
 
 import React, { useContext } from "react";
-import { storeContext } from "../app/store";
+import { storeContext } from "../store";
 import {
   handleClickVideo,
   handleClickChannel,

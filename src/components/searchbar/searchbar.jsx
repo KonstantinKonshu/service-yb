@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import YoutubeAPI from "../youtubeAPI/youtubeAPI";
 import { KEY } from "../../constants";
-import { storeContext } from "../app/store";
+import { storeContext } from "../store";
 import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
 const Searchbar = () => {

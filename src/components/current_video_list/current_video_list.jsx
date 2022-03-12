@@ -1,7 +1,7 @@
 import "./current_video_list.scss";
 
 import React, { useContext } from "react";
-import { storeContext } from "../app/store";
+import { storeContext } from "../store";
 import PlayerYoutube from "../player_youtube/player_youtube";
 import VideoList from "../video_list/video_list";
 

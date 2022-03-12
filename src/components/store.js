@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { types } from "../../constants";
+import { types } from "../constants";
 
 const initialState = {
   channelId: null,
