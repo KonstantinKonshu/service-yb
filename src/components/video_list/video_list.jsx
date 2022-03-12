@@ -18,7 +18,6 @@ const VideoList = () => {
 
       return (
         <Link key={`VideoList_${index}`} to={url}>
-          <div></div>
           <VideoItem key={`VideoList_${index}`} video={video} />
         </Link>
       );

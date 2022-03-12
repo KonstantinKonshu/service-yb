@@ -32,8 +32,7 @@ const Searchbar = () => {
 
     YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
       .then((rsp) => {
-        console.log("Youtube rsp: ", rsp);
-        console.log("Youtube rsp 2: ", rsp.data);
+        console.log("Youtube rsp: ", rsp.data);
         // const receivedData = response.data;
         dispatch(getRequestSearch(rsp.data));
       })
@@ -59,18 +58,12 @@ const Searchbar = () => {
         placeholder="Enter request"
       />
       <Link to={`/videolist?search=${term}`}>
-        <button
-          className="yb-sb-main_container-btn_search yb-general_text_font"
-          onClick={onSubmit}
-        >
+        <button className="yb-sb-main_container-btn_search yb-general_text_font" onClick={onSubmit}>
           {"Search"}
         </button>
       </Link>
       <Link to={`/videolist?search=${term}`}>
-        <button
-          className="yb-sb-main_container-btn_back yb-general_text_font"
-          onClick={onSubmit}
-        >
+        <button className="yb-sb-main_container-btn_back yb-general_text_font" onClick={onSubmit}>
           {"Channel exit"}
         </button>
       </Link>

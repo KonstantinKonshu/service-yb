@@ -7,14 +7,9 @@ import VideoList from "../video_list/video_list";
 
 const CurrentVideoList = () => {
   const { state } = useContext(storeContext);
-  let title, channelTitle, description;
-  const selectedVideo = state.selectedVideo || {};
-
-  if (selectedVideo) {
-    title = selectedVideo.snippet.title;
-    channelTitle = selectedVideo.snippet.channelTitle;
-    description = selectedVideo.snippet.description;
-  }
+  const title = state.selectedVideo ? state.selectedVideo.snippet.title : "";
+  const channelTitle = state.selectedVideo ? state.selectedVideo.snippet.channelTitle : "";
+  const description = state.selectedVideo ? state.selectedVideo.snippet.description : "";
 
   return (
     <div className="yb-cvl-main_container">
