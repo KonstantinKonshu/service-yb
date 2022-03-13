@@ -162,14 +162,12 @@ const ProviderStore = ({ children }) => {
   useEffect(() => {
     console.log("EFFECT Provider");
     const params = queryString.parse(window.location.search);
-    // const url = window.location.href.toString()
     console.log("search: ", window.location.search);
     console.log("params: ", params);
 
-    handleSubmit(params.search, dispatch);
-
-    // dispatch({ search: "params.search" });
-    // if(url.includes("search"))
+    if (params.search) handleSubmit(params.search, dispatch);
+    else if (params.ChannelId) handleSubmit(params.ChannelId, dispatch);
+    else if (params.id) handleSubmit(params.id, dispatch);
   }, []);
 
   return <storeContext.Provider value={{ state, dispatch }}>{children}</storeContext.Provider>;
