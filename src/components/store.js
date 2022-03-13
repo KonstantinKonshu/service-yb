@@ -1,5 +1,14 @@
-import React, { createContext, useReducer } from "react";
-import { types } from "../constants";
+import React, { createContext, useEffect, useReducer } from "react";
+import queryString from "query-string";
+import { types, KEY } from "../constants";
+import {
+  handleSubmitInit,
+  handleClickVideo,
+  getRequestSearch,
+  getBannerChannels,
+  setError,
+} from "../actions";
+import YoutubeAPI from "./youtubeAPI/youtubeAPI";
 
 const initialState = {
   channelId: null,
@@ -60,16 +69,109 @@ const reducer = (state, action) => {
   }
 };
 
+const handleSubmit = (termFromSearchBar, dispatch) => {
+  dispatch(handleSubmitInit(termFromSearchBar, null));
+
+  if (window.location.pathname === "/current-video") {
+    const params = {
+      id: termFromSearchBar,
+      key: KEY,
+      part: "snippet,contentDetails,statistics,status",
+    };
+    YoutubeAPI.get(`https://www.googleapis.com/youtube/v3/videos`, { params })
+      .then((response) => {
+        dispatch(handleClickVideo(response.data.items[0]));
+
+        //запрос на нахождение подобных видео по Title
+        const params = {
+          q: response.data.items[0].snippet.title,
+          part: "snippet",
+          key: KEY,
+          maxResults: 10,
+        };
+        requestGetSearch(params, false, dispatch);
+      })
+      .catch((error) => {
+        console.log("ERROR", error);
+        dispatch(setError(true));
+      });
+  } else {
+    if (window.location.pathname === "/videolist") {
+      const params = {
+        q: termFromSearchBar,
+        part: "snippet",
+        key: KEY,
+        maxResults: 10,
+      };
+      requestGetSearch(params, false, dispatch);
+    } else if (window.location.pathname === "/current-channel") {
+      let params = {
+        channelId: termFromSearchBar,
+        part: "snippet",
+        key: KEY,
+        maxResults: 10,
+      };
+      requestGetSearch(params, false, dispatch);
+
+      params = {
+        id: termFromSearchBar,
+        part: "snippet,brandingSettings",
+        key: KEY,
+      };
+      YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", { params })
+        .then((response) => {
+          const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
+          dispatch(getBannerChannels(bannerUrl));
+        })
+        .catch((error) => {
+          console.log("ERROR", error);
+          dispatch(setError(true));
+        });
+    }
+  }
+  // document.getElementsByClassName("yb-sb-main_container-btn_back")[0].style.display = "none";
+  // document.getElementsByClassName("yb-app-block_btn_control-prev_btn")[0].style.display = "none";
+  // document.getElementsByClassName("yb-app-block_btn_control-next_btn")[0].style.display = "initial";
+};
+
+const requestGetSearch = (params, prevIndic, dispatch) => {
+  YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
+    .then((response) => {
+      console.log("requestGetSearch rsp: ", response);
+      const receivedData = response.data;
+      console.log("received", receivedData.items.length);
+      dispatch(getRequestSearch(receivedData));
+
+      // if (prevIndic && !receivedData.prevPageToken)
+      //   document.getElementsByClassName("yb-app-block_btn_control-prev_btn")[0].style.display =
+      //     "none";
+      // if (receivedData.items.length === 0) this.props.setError(true);
+    })
+    .catch((error) => {
+      console.log("ERROR", error);
+      dispatch(setError(true));
+    });
+};
+
 const storeContext = createContext(initialState);
 
 const ProviderStore = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return (
-    <storeContext.Provider value={{ state, dispatch }}>
-      {children}
-    </storeContext.Provider>
-  );
+  useEffect(() => {
+    console.log("EFFECT Provider");
+    const params = queryString.parse(window.location.search);
+    // const url = window.location.href.toString()
+    console.log("search: ", window.location.search);
+    console.log("params: ", params);
+
+    handleSubmit(params.search, dispatch);
+
+    // dispatch({ search: "params.search" });
+    // if(url.includes("search"))
+  }, []);
+
+  return <storeContext.Provider value={{ state, dispatch }}>{children}</storeContext.Provider>;
 };
 
 export { storeContext, ProviderStore };
