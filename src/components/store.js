@@ -25,8 +25,6 @@ const initialState = {
 const reducer = (state, action) => {
   console.log("ACTION: ", action);
   switch (action.type) {
-    case "action description":
-      return { ...state, search: action.payload };
     case types.SELECT_CHANNEL:
       return {
         ...state,
@@ -69,14 +67,14 @@ const reducer = (state, action) => {
   }
 };
 
-const handleSubmit = (termFromSearchBar, dispatch) => {
-  dispatch(handleSubmitInit(termFromSearchBar, null));
+const handleSubmit = (search, dispatch) => {
+  dispatch(handleSubmitInit(search, null));
 
   if (window.location.pathname === "/videolist") {
     console.log("videolist!!!");
 
     const params = {
-      q: termFromSearchBar,
+      q: search,
       part: "snippet",
       key: KEY,
       maxResults: 10,
@@ -86,7 +84,7 @@ const handleSubmit = (termFromSearchBar, dispatch) => {
     console.log("current-video!!!");
 
     const params = {
-      id: termFromSearchBar,
+      id: search,
       key: KEY,
       part: "snippet,contentDetails,statistics,status",
     };
@@ -111,7 +109,7 @@ const handleSubmit = (termFromSearchBar, dispatch) => {
     console.log("current-channel!!!");
 
     let params = {
-      channelId: termFromSearchBar,
+      channelId: search,
       part: "snippet",
       key: KEY,
       maxResults: 10,
@@ -119,7 +117,7 @@ const handleSubmit = (termFromSearchBar, dispatch) => {
     requestGetSearch(params, false, dispatch);
 
     params = {
-      id: termFromSearchBar,
+      id: search,
       part: "snippet,brandingSettings",
       key: KEY,
     };
