@@ -8,7 +8,7 @@ import VideoList from "../video_list/video_list";
 const CurrentVideoList = () => {
   const { state } = useContext(storeContext);
   const title = state.selectedVideo ? state.selectedVideo.snippet.title : "";
-  const channelTitle = state.selectedVideo ? state.selectedVideo.snippet.channelTitle : "";
+  const channel_title = state.selectedVideo ? state.selectedVideo.snippet.channelTitle : "";
   const description = state.selectedVideo ? state.selectedVideo.snippet.description : "";
 
   return (
@@ -17,7 +17,7 @@ const CurrentVideoList = () => {
         <PlayerYoutube />
         <div className="yb-cvl-main_video_constainer-video_content">
           <div className="yb-cvl-video_content-title">{title}</div>
-          <div className="yb-cvl-video_content-channel_title">{channelTitle}</div>
+          <div className="yb-cvl-video_content-channel_title">{channel_title}</div>
           <div className="yb-cvl-video_content-desc">{description}</div>
         </div>
       </div>

@@ -18,7 +18,10 @@ const VideoItem = ({ video }) => {
   const { dispatch } = useContext(storeContext);
 
   const clickItem = (video) => {
+    console.log("video_item click!!!!");
+    // window.scrollTo(0, 100000);
     // scroll.scrollToTop();
+    // window.scrollTo(0, 0);
 
     if (video.id.kind === "youtube#video") dispatch(handleClickVideo(video));
 
@@ -57,13 +60,6 @@ const VideoItem = ({ video }) => {
           console.log("ERROR", error);
           dispatch(setError(true));
         });
-
-      // document.getElementsByClassName(
-      //   "yb-app-block_btn_control-next_btn"
-      // )[0].style.display = "initial";
-      // document.getElementsByClassName(
-      //   "yb-sb-main_container-btn_back"
-      // )[0].style.display = "initial";
     }
   };
 

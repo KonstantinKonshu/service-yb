@@ -8,7 +8,7 @@ import { storeContext } from "../store";
 import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
 const Searchbar = () => {
-  const [term, setTerm] = useState("");
+  const [search, setSearch] = useState("");
   const { dispatch } = useContext(storeContext);
 
   useEffect(() => {
@@ -16,14 +16,14 @@ const Searchbar = () => {
   }, []);
 
   const handleOnChange = (e) => {
-    setTerm(e.target.value);
+    setSearch(e.target.value);
   };
 
   const onSubmit = () => {
-    dispatch(handleSubmitInit(term, null));
+    dispatch(handleSubmitInit(search, null));
 
     const params = {
-      q: term,
+      q: search,
       part: "snippet",
       key: KEY,
       maxResults: 10,
@@ -33,7 +33,6 @@ const Searchbar = () => {
     YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
       .then((rsp) => {
         console.log("Youtube rsp: ", rsp.data);
-        // const receivedData = response.data;
         dispatch(getRequestSearch(rsp.data));
       })
       .catch((error) => {
@@ -54,15 +53,15 @@ const Searchbar = () => {
         onChange={(e) => handleOnChange(e)}
         name="search"
         type="text"
-        value={term}
+        value={search}
         placeholder="Enter request"
       />
-      <Link to={`/videolist?search=${term}`}>
+      <Link to={`/videolist?search=${search}`}>
         <button className="yb-sb-main_container-btn_search yb-general_text_font" onClick={onSubmit}>
           {"Search"}
         </button>
       </Link>
-      <Link to={`/videolist?search=${term}`}>
+      <Link to={`/videolist?search=${search}`}>
         <button className="yb-sb-main_container-btn_back yb-general_text_font" onClick={onSubmit}>
           {"Channel exit"}
         </button>

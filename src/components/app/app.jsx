@@ -3,7 +3,7 @@ import "./app.scss";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProviderStore } from "../store";
-import Home from "../home/home";
+// import Home from "../home/home";
 import VideoList from "../video_list/video_list";
 import CurrentVideoList from "../current_video_list/current_video_list";
 import CurrentChannelList from "../current_channel_list/current_channel_list";
@@ -16,7 +16,7 @@ const App = () => {
         <div className="app-main_container">
           <Searchbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/videolist" element={<VideoList />} />
             <Route path="/current-video" element={<CurrentVideoList />} />
             <Route path="/current-channel" element={<CurrentChannelList />} />
