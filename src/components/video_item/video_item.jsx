@@ -28,7 +28,7 @@ const VideoItem = ({ video }) => {
     if (video.id.kind === "youtube#channel") {
       dispatch(handleClickChannel(video));
 
-      let params = {
+      const params = {
         channelId: video.id.channelId,
         part: "snippet",
         key: KEY,
@@ -38,22 +38,18 @@ const VideoItem = ({ video }) => {
         .then((response) => {
           const receivedData = response.data;
           dispatch(getRequestSearch(receivedData));
-        })
-        .catch((error) => {
-          console.log("ERROR", error);
-          dispatch(setError(true));
-        });
 
-      params = {
-        id: video.id.channelId,
-        part: "snippet,brandingSettings",
-        key: KEY,
-      };
-      YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", {
-        params,
-      })
-        .then((response) => {
-          const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
+          const params = {
+            id: video.id.channelId,
+            part: "snippet,brandingSettings",
+            key: KEY,
+          };
+          return YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", {
+            params,
+          });
+        })
+        .then((rsp) => {
+          const bannerUrl = rsp.data.items[0].brandingSettings.image.bannerImageUrl;
           dispatch(getBannerChannels(bannerUrl));
         })
         .catch((error) => {
@@ -81,7 +77,7 @@ const VideoItem = ({ video }) => {
           alt={video.snippet.description}
         />
         <div className="yb-vi-main_container_item-icon_play">
-          <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="" />
+          <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="ic_play" />
         </div>
       </div>
       <div className="yb-vi-main_container-title ">{video.snippet.title}</div>

@@ -18,11 +18,11 @@ const VideoList = () => {
 
       return (
         <Link key={`VideoList_${index}`} to={url}>
-          <VideoItem key={`VideoList_${index}`} video={video} />
+          <VideoItem video={video} />
         </Link>
       );
     });
-  return <div className="yb-vl-main_container">{renderedVideos}</div>;
+  return <div className="video_list-main_container">{renderedVideos}</div>;
 };
 
 export default VideoList;
