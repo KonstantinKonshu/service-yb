@@ -1,6 +1,10 @@
 import "./video_item.scss";
 
 import React, { useContext } from "react";
+import classNames from "classnames";
+// import { animateScroll as scroll } from "react-scroll";
+
+import { get } from "../../utils/utils";
 import { storeContext } from "../store";
 import {
   handleClickVideo,
@@ -9,10 +13,6 @@ import {
   getBannerChannels,
   setError,
 } from "../../actions";
-import YoutubeAPI from "../youtubeAPI/youtubeAPI";
-import { KEY } from "../../constants";
-import classNames from "classnames";
-// import { animateScroll as scroll } from "react-scroll";
 
 const VideoItem = ({ video }) => {
   const { dispatch } = useContext(storeContext);
@@ -31,10 +31,10 @@ const VideoItem = ({ video }) => {
       const params = {
         channelId: video.id.channelId,
         part: "snippet",
-        key: KEY,
+        // key: KEY,
         maxResults: 10,
       };
-      YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
+      get("/search", { params })
         .then((response) => {
           const receivedData = response.data;
           dispatch(getRequestSearch(receivedData));
@@ -42,9 +42,9 @@ const VideoItem = ({ video }) => {
           const params = {
             id: video.id.channelId,
             part: "snippet,brandingSettings",
-            key: KEY,
+            // key: KEY,
           };
-          return YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", {
+          return get("/channels", {
             params,
           });
         })

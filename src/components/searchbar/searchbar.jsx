@@ -2,8 +2,8 @@ import "./searchbar.scss";
 
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import YoutubeAPI from "../youtubeAPI/youtubeAPI";
-import { KEY } from "../../constants";
+
+import { get } from "../../utils/utils";
 import { storeContext } from "../store";
 import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
@@ -25,12 +25,11 @@ const Searchbar = () => {
     const params = {
       q: search,
       part: "snippet",
-      key: KEY,
       maxResults: 10,
     };
     console.log("params: ", params);
 
-    YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
+    get("/search", { params })
       .then((rsp) => {
         console.log("Youtube rsp: ", rsp.data);
         dispatch(getRequestSearch(rsp.data));

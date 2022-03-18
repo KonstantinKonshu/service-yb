@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import queryString from "query-string";
-import { types, KEY } from "../constants";
+
+import { get } from "../utils/utils";
+import { types } from "../constants";
 import {
   handleSubmitInit,
   handleClickVideo,
@@ -8,7 +10,6 @@ import {
   getBannerChannels,
   setError,
 } from "../actions";
-import YoutubeAPI from "./youtubeAPI/youtubeAPI";
 
 const initialState = {
   channelId: null,
@@ -68,6 +69,7 @@ const reducer = (state, action) => {
 };
 
 const handleSubmit = (search, dispatch) => {
+  console.log("handleSubmit !!!!");
   dispatch(handleSubmitInit(search, null));
 
   if (window.location.pathname === "/videolist") {
@@ -76,7 +78,6 @@ const handleSubmit = (search, dispatch) => {
     const params = {
       q: search,
       part: "snippet",
-      key: KEY,
       maxResults: 10,
     };
     requestGetSearch(params, false, dispatch);
@@ -85,10 +86,9 @@ const handleSubmit = (search, dispatch) => {
 
     const params = {
       id: search,
-      key: KEY,
       part: "snippet,contentDetails,statistics,status",
     };
-    YoutubeAPI.get(`https://www.googleapis.com/youtube/v3/videos`, { params })
+    get(`/videos`, { params })
       .then((response) => {
         dispatch(handleClickVideo(response.data.items[0]));
 
@@ -96,7 +96,6 @@ const handleSubmit = (search, dispatch) => {
         const params = {
           q: response.data.items[0].snippet.title,
           part: "snippet",
-          key: KEY,
           maxResults: 10,
         };
         requestGetSearch(params, false, dispatch);
@@ -111,7 +110,6 @@ const handleSubmit = (search, dispatch) => {
     let params = {
       channelId: search,
       part: "snippet",
-      key: KEY,
       maxResults: 10,
     };
     requestGetSearch(params, false, dispatch);
@@ -119,9 +117,8 @@ const handleSubmit = (search, dispatch) => {
     params = {
       id: search,
       part: "snippet,brandingSettings",
-      key: KEY,
     };
-    YoutubeAPI.get("https://www.googleapis.com/youtube/v3/channels", { params })
+    get("/channels", { params })
       .then((response) => {
         const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
         dispatch(getBannerChannels(bannerUrl));
@@ -134,7 +131,7 @@ const handleSubmit = (search, dispatch) => {
 };
 
 const requestGetSearch = (params, prevIndic, dispatch) => {
-  YoutubeAPI.get("https://www.googleapis.com/youtube/v3/search", { params })
+  get("/search", { params })
     .then((response) => {
       console.log("requestGetSearch rsp: ", response);
       const receivedData = response.data;

@@ -1,5 +1,3 @@
-export const KEY = "AIzaSyBP19qfjTwchTHfVDTHWkg1WLBF7KSScvk";
-
 export const types = {
   get: {
     GET_REQUEST_SEARCH: "GET_REQUEST_SEARCH",

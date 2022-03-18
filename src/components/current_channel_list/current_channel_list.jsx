@@ -1,6 +1,7 @@
 import "./current_channel_list.scss";
 
 import React, { useContext } from "react";
+
 import { storeContext } from "../store";
 import VideoList from "../video_list/video_list";
 
