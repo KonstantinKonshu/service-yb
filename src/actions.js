@@ -12,21 +12,21 @@ const handleSubmitInit = (termFromSearchBar, initialItem) => {
 
 const getRequestSearch = (data) => {
   return {
-    type: types.get.GET_REQUEST_SEARCH,
+    type: types.GET_REQUEST_SEARCH,
     payload: data,
   };
 };
 
 const getBannerChannels = (bannerChannel) => {
   return {
-    type: types.get.GET_BANNER_CHANNELS,
+    type: types.GET_BANNER_CHANNELS,
     payload: bannerChannel,
   };
 };
 
 const handleClickVideo = (videoSelect) => {
   return {
-    type: types.set.SET_SELECT_VIDEO,
+    type: types.SET_SELECT_VIDEO,
     payload: videoSelect,
   };
 };
@@ -40,7 +40,7 @@ const handleClickChannel = (channel) => {
 
 const setError = (error) => {
   return {
-    type: types.set.SET_ERROR,
+    type: types.SET_ERROR,
     payload: error,
   };
 };

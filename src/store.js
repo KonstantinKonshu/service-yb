@@ -40,24 +40,24 @@ const reducer = (state, action) => {
         bannerChannel: action.payload2,
         handleError: action.payload3,
       };
-    case types.get.GET_BANNER_CHANNELS:
+    case types.GET_BANNER_CHANNELS:
       return {
         ...state,
         bannerChannel: action.payload,
       };
-    case types.get.GET_REQUEST_SEARCH:
+    case types.GET_REQUEST_SEARCH:
       return {
         ...state,
         videos: action.payload.items,
         nextPageToken: action.payload.nextPageToken,
         prevPageToken: action.payload.prevPageToken,
       };
-    case types.set.SET_ERROR:
+    case types.SET_ERROR:
       return {
         ...state,
         handleError: action.payload,
       };
-    case types.set.SET_SELECT_VIDEO:
+    case types.SET_SELECT_VIDEO:
       console.log(action.payload);
       return {
         ...state,
