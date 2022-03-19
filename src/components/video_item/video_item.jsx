@@ -5,7 +5,7 @@ import classNames from "classnames";
 // import { animateScroll as scroll } from "react-scroll";
 
 import { get } from "../../utils/utils";
-import { storeContext } from "../store";
+import { storeContext } from "../../store";
 import {
   handleClickVideo,
   handleClickChannel,

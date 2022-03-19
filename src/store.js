@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import queryString from "query-string";
 
-import { get } from "../utils/utils";
-import { types } from "../constants";
+import { get } from "./utils/utils";
+import { types } from "./constants";
 import {
   handleSubmitInit,
   handleClickVideo,
   getRequestSearch,
   getBannerChannels,
   setError,
-} from "../actions";
+} from "./actions";
 
 const initialState = {
   channelId: null,

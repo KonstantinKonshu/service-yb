@@ -2,9 +2,10 @@ import "./searchbar.scss";
 
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 import { get } from "../../utils/utils";
-import { storeContext } from "../store";
+import { storeContext } from "../../store";
 import { getRequestSearch, handleSubmitInit, setError } from "../../actions";
 
 const Searchbar = () => {
@@ -13,6 +14,8 @@ const Searchbar = () => {
 
   useEffect(() => {
     console.log("componentDidMount_SB");
+    const params = queryString.parse(window.location.search);
+    if (params.search) setSearch(params.search);
   }, []);
 
   const handleOnChange = (e) => {

@@ -3,7 +3,7 @@ import "./video_list.scss";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { storeContext } from "../store";
+import { storeContext } from "../../store";
 import VideoItem from "../video_item/video_item";
 
 const VideoList = () => {

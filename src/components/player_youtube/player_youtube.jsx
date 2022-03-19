@@ -2,7 +2,7 @@ import "./player_youtube.scss";
 
 import React, { useContext } from "react";
 
-import { storeContext } from "../store";
+import { storeContext } from "../../store";
 
 const PlayerYoutube = () => {
   const { state } = useContext(storeContext);
