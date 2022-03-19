@@ -1,20 +1,27 @@
 import axios from "axios";
 import { baseURL, KEY } from "./constants";
 
-const httpClient = axios.create({
+export const httpClient = axios.create({
   baseURL: baseURL,
 });
 
 export const get = (url, params) => {
   console.log(`GET request to ${url}`);
+  // const res = params, key: KEY };
 
   params = { ...params, key: KEY };
-  // const params = {
-  //   q: search,
+  // console.log("prms bef: ", params);
+  // params.key = KEY;
+
+  // const params1 = {
+  //   q: "ubuntu",
   //   part: "snippet",
   //   key: KEY,
   //   maxResults: 10,
   // };
 
-  return httpClient.get(url, params);
+  // console.log("prms: ", params1);
+  // console.log("prms res: ", res);
+
+  return httpClient.get(url, { params });
 };

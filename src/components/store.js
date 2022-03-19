@@ -88,7 +88,8 @@ const handleSubmit = (search, dispatch) => {
       id: search,
       part: "snippet,contentDetails,statistics,status",
     };
-    get(`/videos`, { params })
+
+    get(`/videos`, params)
       .then((response) => {
         dispatch(handleClickVideo(response.data.items[0]));
 
@@ -118,7 +119,7 @@ const handleSubmit = (search, dispatch) => {
       id: search,
       part: "snippet,brandingSettings",
     };
-    get("/channels", { params })
+    get("/channels", params)
       .then((response) => {
         const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
         dispatch(getBannerChannels(bannerUrl));
@@ -131,7 +132,8 @@ const handleSubmit = (search, dispatch) => {
 };
 
 const requestGetSearch = (params, prevIndic, dispatch) => {
-  get("/search", { params })
+  console.log("requestGetSearch prms: ", params);
+  get("/search", params)
     .then((response) => {
       console.log("requestGetSearch rsp: ", response);
       const receivedData = response.data;

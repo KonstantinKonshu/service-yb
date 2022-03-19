@@ -29,7 +29,7 @@ const Searchbar = () => {
     };
     console.log("params: ", params);
 
-    get("/search", { params })
+    get("/search", params)
       .then((rsp) => {
         console.log("Youtube rsp: ", rsp.data);
         dispatch(getRequestSearch(rsp.data));

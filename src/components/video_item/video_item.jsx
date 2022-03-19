@@ -31,10 +31,9 @@ const VideoItem = ({ video }) => {
       const params = {
         channelId: video.id.channelId,
         part: "snippet",
-        // key: KEY,
         maxResults: 10,
       };
-      get("/search", { params })
+      get("/search", params)
         .then((response) => {
           const receivedData = response.data;
           dispatch(getRequestSearch(receivedData));
@@ -42,11 +41,8 @@ const VideoItem = ({ video }) => {
           const params = {
             id: video.id.channelId,
             part: "snippet,brandingSettings",
-            // key: KEY,
           };
-          return get("/channels", {
-            params,
-          });
+          return get("/channels", params);
         })
         .then((rsp) => {
           const bannerUrl = rsp.data.items[0].brandingSettings.image.bannerImageUrl;
