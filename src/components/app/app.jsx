@@ -1,18 +1,20 @@
 import "./app.scss";
 
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ProviderStore } from "../../store";
-import VideoList from "../video_list/video_list";
-import CurrentVideoList from "../current_video_list/current_video_list";
-import CurrentChannelList from "../current_channel_list/current_channel_list";
-import Searchbar from "../searchbar/searchbar";
+import RouterApp from "../../routes/router_app";
+// import VideoList from "../video_list/video_list";
+// import CurrentVideoList from "../current_video_list/current_video_list";
+// import CurrentChannelList from "../current_channel_list/current_channel_list";
+// import Searchbar from "../searchbar/searchbar";
 
 const App = () => {
   return (
     <ProviderStore>
-      <Router>
+      <RouterApp />
+      {/* <Router>
         <div className="app-main_container">
           <Searchbar />
           <Routes>
@@ -21,7 +23,7 @@ const App = () => {
             <Route path="/current-channel" element={<CurrentChannelList />} />
           </Routes>
         </div>
-      </Router>
+      </Router> */}
     </ProviderStore>
   );
 };

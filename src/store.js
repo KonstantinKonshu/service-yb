@@ -121,7 +121,8 @@ const handleSubmit = (search, dispatch) => {
     };
     get("/channels", params)
       .then((response) => {
-        const bannerUrl = response.data.items[0].brandingSettings.image.bannerImageUrl;
+        console.log("get_channels rsp: ", response);
+        const bannerUrl = response.data.items[0].brandingSettings.image.bannerExternalUrl;
         dispatch(getBannerChannels(bannerUrl));
       })
       .catch((error) => {
