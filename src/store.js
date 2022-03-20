@@ -3,13 +3,7 @@ import queryString from "query-string";
 
 import { get } from "./utils/utils";
 import { types } from "./constants";
-import {
-  handleSubmitInit,
-  handleClickVideo,
-  getRequestSearch,
-  getBannerChannels,
-  setError,
-} from "./actions";
+import { handleSubmitInit, handleClickVideo, getRequestSearch, getBannerChannels, setError } from "./actions";
 
 const initialState = {
   channelId: null,
@@ -48,7 +42,7 @@ const reducer = (state, action) => {
     case types.GET_REQUEST_SEARCH:
       return {
         ...state,
-        videos: action.payload.items,
+        videos: [...state.videos, ...action.payload.items],
         nextPageToken: action.payload.nextPageToken,
         prevPageToken: action.payload.prevPageToken,
       };
@@ -73,14 +67,13 @@ const handleSubmit = (search, dispatch) => {
   dispatch(handleSubmitInit(search, null));
 
   if (window.location.pathname === "/videolist") {
-    console.log("videolist!!!");
-
-    const params = {
-      q: search,
-      part: "snippet",
-      maxResults: 10,
-    };
-    requestGetSearch(params, false, dispatch);
+    // console.log("videolist!!!");
+    // const params = {
+    //   q: search,
+    //   part: "snippet",
+    //   maxResults: 10,
+    // };
+    // requestGetSearch(params, false, dispatch);
   } else if (window.location.pathname === "/current-video") {
     console.log("current-video!!!");
 
@@ -156,6 +149,7 @@ const storeContext = createContext(initialState);
 
 const ProviderStore = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  // const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     console.log("EFFECT Provider");
@@ -167,6 +161,20 @@ const ProviderStore = ({ children }) => {
     else if (params.ChannelId) handleSubmit(params.ChannelId, dispatch);
     else if (params.id) handleSubmit(params.id, dispatch);
   }, []);
+
+  // useEffect(() => {
+  //   if (fetching) {
+  //     const p = queryString.parse(window.location.search);
+  //     console.log("fetching");
+  //     const params = {
+  //       q: state.search || p.search,
+  //       part: "snippet",
+  //       maxResults: 10,
+  //       pageToken: state.pageToken,
+  //     };
+  //     get("/search", params);
+  //   }
+  // }, [fetching]);
 
   return <storeContext.Provider value={{ state, dispatch }}>{children}</storeContext.Provider>;
 };
